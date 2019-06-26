@@ -16,6 +16,7 @@ read_projectdata <- function(){
                         Instituicao = col_character(),
                         Programa = col_character(),
                         Sigla = col_character(),
+                        Nivel = col_integer(),
                         `Tem doutorado` = col_character(),
                         `Docentes colaboradores` = col_double(),
                         `Docentes permanentes` = col_double(),

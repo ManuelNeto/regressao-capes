@@ -45,6 +45,7 @@ cacc = cacc_tudo %>%
     produtividade = producao / docentes,
     mestrados = Dissertacoes,
     doutorados = Teses,
+    nivel = Nivel,
     tem_doutorado = tolower(`Tem doutorado`) == "sim",
     mestrados_pprof = mestrados / docentes,
     doutorados_pprof = doutorados / docentes
@@ -177,7 +178,10 @@ Considerando agora esses três fatores, o que podemos dizer sobre como cada um d
 -----
 
 Para esta segunda etapa do laboratório, utilizamos regressão linear múltipla para analisar se as variáveis independentes(docentes permanentes, mestrados,  doutorados) tem uma associação significativa com a variável dependente produção do programa. A regressão possui o seguinte modelo: Y = 3.4997112*X1 - 0.1949515*X2 + 1.0007711*X3 - 14.3663077, sendo X1 = docentes permanentes, X2 = mestrados e X3 = doutorados. Nota-se uma relação com significância estatística comprovada pelo R² (b = [2.58; 4.42]) ,  (b = [-0.35; -0.03]) e (b = [0.63;1.36]), todos com 95% de confiança, são respectivos a cada uma das variáveis independentes.
+
 Observa-se que o fator com maior influência é a quantidade de docentes permanentes(X1), sendo X1 e X3 relações positivas e direita, enquanto que a X2(mestrados) possui uma relação negativa. Analisando friamente os números, temos a ideia de que a medida que o número de mestrado cresce, a produtividade decresce e uma justificativa para isso ainda é nebulosa.  
+
+Ainda sobre a regressão encontrada nessa segunda etapa, ela explica um pouco mais que a regressão da etapa 2, ou seja, a regressão da segunda etapa explica aproximadamente 86% da variância da quantidade de docentes permanentes, enquanto que o regressão da etapa 1 explica aproximadamente 81%.
 
 
 -----
@@ -188,3 +192,47 @@ Observa-se que o fator com maior influência é a quantidade de docentes permane
 Diferente de medirmos produção (total produzido), é medirmos produtividade (produzido / utilizado). Abaixo focaremos nessa análise. Para isso crie um modelo que investiga como um conjunto de fatores que você julga que são relevantes se relacionam com a produtividade dos programas. Crie um modelo que avalie como _pelo menos 3 fatores_ se relacionam com a produtividade de um programa. Pode reutilizar fatores que já definimos e analizamos para produção. Mas cuidado para não incluir fatores que sejam função linear de outros já incluídos (ex: incluir A, B e um tercero C=A+B)
 
 Produza abaixo o modelo e um texto que comente (i) o modelo, tal como os que fizemos antes, e (ii) as implicações - o que aprendemos sobre como funcionam programas de pós no brasil?.
+
+
+-----
+
+```{r}
+regressao3 = lm(produtividade ~ mestrados + doutorados + nivel, data = cacc)
+
+tidy(regressao3, conf.int = TRUE, conf.level = 0.95)
+glance(regressao3)
+
+```
+
+```{r}
+
+para_plotar_modelo = cacc %>% 
+  data_grid(produtividade = seq_range(produtividade, 6),
+            mestrados = median(mestrados),
+            doutorados = seq_range(doutorados, 3),
+            nivel = nivel) %>% 
+  add_predictions(regressao3)
+
+
+glimpse(para_plotar_modelo)
+  
+```
+
+
+```{r}
+
+para_plotar_modelo %>% 
+    ggplot(aes(x = nivel, y = pred)) + 
+    geom_line(aes(group = doutorados, colour = doutorados)) + 
+    geom_point(data = cacc, aes(y = produtividade, colour = doutorados))
+
+
+```
+
+-----
+
+Para esta terceira etapa do laboratório, utilizamos regressão linear múltipla para analisar se as variáveis independentes (mestrados,  doutorados e nível da instituição) tem uma associação significativa com a variável dependente produtividade do programa. A regressão possui o seguinte modelo: Y = -0.004 * X1 + 0.008 * X2 + 0.82 * X3 - 0.60, sendo X1 = mestrados, X2 = doutorados e X3 = nível. Nota-se uma relação com significância estatística comprovada pelo erro (b = [-0,01; 0,002]) ,  (b = [-0,007; 0,02]) e (b = [0,49; 1,15]), todos com 95% de confiança, são respectivos a cada uma das variáveis independentes. A regressão explica 52,59% da variância da variável de resposta (R² = 0.5259).
+
+Observa-se que o fator com maior influência é o nível da instituição(X3), sendo X2 e X3 relações positivas e direita, enquanto que a X2(mestrados) possui uma relação negativa. Analisando friamente os números, temos a ideia de que a medida que o número de mestrado cresce, a produtividade decresce. O aumento de 1 unidade de nível produz uma mudança de 0,82 na produtividade do programa, enquanto que mestrandos diminui 0,004 e doutorandos aumenta 0,008. 
+
+-----
