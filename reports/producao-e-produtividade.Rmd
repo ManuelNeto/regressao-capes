@@ -118,7 +118,7 @@ Produza aqui a sua versão desse texto, portanto:
 
 -----
 
-*SUBSTITUA ESSE TEXTO*
+Nesta etapa do laboratório utilizamos a regressão linear simples para analisar se a relação entre os docentes permanentes(variável independente) e a produção de conhecimento(variável dependente) é significativa, do ponto de vista estatístico. A regressão possui o seguinte modelo: Y = 4.81337.X - 41.27309, sendo X = docentes permanentes e Y = produção do programa. Observa-se uma relação com significância estatística comprovada pelo R² (b = [4.27; 5.36], IC com 95%). Essa regressão ainda é capaz de explicar 0.81% da variância da variável dependente. A relação, por fim, é positiva e direta, conforme X cresce, Y cresce aproximadamente 5 vezes mais.
 
 -----
 
@@ -126,7 +126,8 @@ Dito isso, o que significa a relação que você encontrou na prática para ente
 
 -----
 
-*SUBSTITUA ESSE TEXTO PELA SUA DISCUSSÃO DOS RESULTADOS*
+Os resultados nos mostram que existe uma relação forte entre produtividade e os docentes permanentes. Essa relação é positiva e direita, onde a medida que o número de docentes aumenta, a produtividade também aumenta. Entendo essa relação como natural, pois instituições com um maior corpo docente tendem a ter uma grande produtividade. 
+
 
 -----
 
@@ -175,7 +176,9 @@ Considerando agora esses três fatores, o que podemos dizer sobre como cada um d
 
 -----
 
-**EXPLICAÇÃO**: *Substitua esse texto por texto feito tal qual o que usamos com uma variável*
+Para esta segunda etapa do laboratório, utilizamos regressão linear múltipla para analisar se as variáveis independentes(docentes permanentes, mestrados,  doutorados) tem uma associação significativa com a variável dependente produção do programa. A regressão possui o seguinte modelo: Y = 3.4997112*X1 - 0.1949515*X2 + 1.0007711*X3 - 14.3663077, sendo X1 = docentes permanentes, X2 = mestrados e X3 = doutorados. Nota-se uma relação com significância estatística comprovada pelo R² (b = [2.58; 4.42]) ,  (b = [-0.35; -0.03]) e (b = [0.63;1.36]), todos com 95% de confiança, são respectivos a cada uma das variáveis independentes.
+Observa-se que o fator com maior influência é a quantidade de docentes permanentes(X1), sendo X1 e X3 relações positivas e direita, enquanto que a X2(mestrados) possui uma relação negativa. Analisando friamente os números, temos a ideia de que a medida que o número de mestrado cresce, a produtividade decresce e uma justificativa para isso ainda é nebulosa.  
+
 
 -----
 
